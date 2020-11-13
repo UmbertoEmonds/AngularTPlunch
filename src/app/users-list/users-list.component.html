@@ -1,0 +1,13 @@
+<table>
+    <tr *ngFor="let user of users, let i = index">
+        <td>{{user.id}}. </td>
+        <td>{{user.name}}</td>
+        <td>{{user.firstname}}</td>
+        <td>{{user.wallet}}</td>
+        <td>
+            <input [(ngModel)]="wallet" type="number">
+            <button (click)="removeToWallet(user.id, wallet)">-</button>
+            <button (click)="addToWallet(user.id, wallet)">+</button>
+        </td>
+    </tr>
+</table>
