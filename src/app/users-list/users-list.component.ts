@@ -40,17 +40,19 @@ export class UsersListComponent implements OnInit {
       })
   }
 
-  addToWallet(userId: number, amount:number){
-    this.userService.creditWallet(this.token, userId, amount)
+  updateWallet(userId: number, amount: number, type:string){
+
+    console.log(amount)
+
+    if(amount != 0){
+      this.userService.addToWallet(this.token, userId, amount, type)
       .subscribe((res: any) => {
         console.log(res)
       })
+    } else {
+      alert("Veuillez saisir un montant")
+    }
+    
   }
 
-  removeToWallet(userId: number, amount: number){
-    this.userService.debitWallet(this.token, userId, amount)
-      .subscribe((res: any) => {
-        console.log(res)
-      })
-  }
 }

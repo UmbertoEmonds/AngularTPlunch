@@ -5,9 +5,9 @@
         <td>{{user.firstname}}</td>
         <td>{{user.wallet}}</td>
         <td>
-            <input [(ngModel)]="wallet" type="number">
-            <button (click)="removeToWallet(user.id, wallet)">-</button>
-            <button (click)="addToWallet(user.id, wallet)">+</button>
+            <input #amount type="number">
+            <button (click)="updateWallet(user.id, amount.value, 'debit')">-</button>
+            <button (click)="updateWallet(user.id, amount.value, 'credit')">+</button>
         </td>
     </tr>
 </table>
