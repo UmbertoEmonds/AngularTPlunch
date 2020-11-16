@@ -17,21 +17,22 @@ export class UserService {
 
   getUsers(token:string){
 
-    let headers = {
+    let options = {
       headers: {"Authorization": token}
     }
 
-    return this.http.get(API + "user/findall", headers)
+    return this.http.get(API + "user/findall", options)
   }
 
   addToWallet(token: string, userId:number, amount:number, type:string){
 
-    let headers = {
+    let options = {
       headers: {"Authorization": token}
     }
 
-    if(type == "credit") return this.http.post(API + "user/credit/" + userId +"?amount=" + amount, headers)
-    else return this.http.post(API + "user/debit/" + userId +"?amount=" + amount, headers)
+    let URL = 'user/' + type + '/' + userId + '?amount=' + amount;
+
+    return this.http.post(API + URL, options, { headers : options.headers })
     
   }
 }

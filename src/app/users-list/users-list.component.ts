@@ -42,17 +42,29 @@ export class UsersListComponent implements OnInit {
 
   updateWallet(userId: number, amount: number, type:string){
 
-    console.log(amount)
-
     if(amount != 0){
       this.userService.addToWallet(this.token, userId, amount, type)
       .subscribe((res: any) => {
-        console.log(res)
+        this.updateUI(userId, type, amount)
       })
     } else {
       alert("Veuillez saisir un montant")
     }
     
+  }
+
+  updateUI(userId: number, type:string, amount: number){
+    this.users.forEach((user : User) => {
+      if (user.id == userId){
+        let newWallet: number
+        if(type == "credit"){
+          newWallet = user.wallet + amount
+        } else {
+          newWallet = user.wallet - amount
+        }
+        user.wallet = newWallet
+      }
+    })
   }
 
 }
