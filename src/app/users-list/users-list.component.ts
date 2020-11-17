@@ -22,13 +22,21 @@ export class UsersListComponent implements OnInit {
   wallet: number
 
   ngOnInit(): void {
-    this.login(this.credentials)
+    let token = localStorage.getItem("token")
+    if(token != null){
+      this.token = token
+      this.getUsers(this.token)
+    } else {
+      this.login(this.credentials)
+    }
   }
 
   getUsers(token: string){
     this.userService.getUsers(token)
     .subscribe((res: any) => {
       this.users = res
+    }, (error) => {
+      alert("Une erreur s'est produite")
     })
   }
 
@@ -36,7 +44,10 @@ export class UsersListComponent implements OnInit {
     this.userService.login(credential)
       .subscribe((res: any) => {
         this.token = res.headers.get("Authorization")
+        localStorage.setItem("token", this.token)
         this.getUsers(this.token)
+      }, (error) => {
+        alert("Une erreur s'est produite lors de la connexion")
       })
   }
 
