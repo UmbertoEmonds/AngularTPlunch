@@ -40,12 +40,21 @@ export class UsersListComponent implements OnInit {
       })
   }
 
-  updateWallet(userId: number, amount: number, type:string){
+  updateWallet(userId: number, amount: string, type:string, index:number){
 
-    if(amount != 0){
-      this.userService.addToWallet(this.token, userId, amount, type)
-      .subscribe((res: any) => {
-        this.updateUI(userId, type, amount)
+    let newAmount = parseFloat(amount)
+
+    if(newAmount != 0){
+      this.userService.addToWallet(this.token, userId, newAmount, type)
+      .subscribe(
+        (response) => {
+
+        this.updateUI(userId, type, newAmount, index)
+
+      }, (error) => {
+
+        alert(error.error.exceptionMessage)
+
       })
     } else {
       alert("Veuillez saisir un montant")
@@ -53,18 +62,14 @@ export class UsersListComponent implements OnInit {
     
   }
 
-  updateUI(userId: number, type:string, amount: number){
-    this.users.forEach((user : User) => {
-      if (user.id == userId){
-        let newWallet: number
-        if(type == "credit"){
-          newWallet = user.wallet + amount
-        } else {
-          newWallet = user.wallet - amount
-        }
-        user.wallet = newWallet
-      }
-    })
+  updateUI(userId: number, type:string, amount: number, index:number){
+
+    if(type == "credit"){
+      this.users[index].wallet += amount
+    } else {
+      this.users[index].wallet -= amount
+    }
+
   }
 
 }

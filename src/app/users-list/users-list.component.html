@@ -6,8 +6,8 @@
         <td>{{user.wallet}}</td>
         <td>
             <input #amount type="number">
-            <button (click)="updateWallet(user.id, amount.value, 'debit')">-</button>
-            <button (click)="updateWallet(user.id, amount.value, 'credit')">+</button>
+            <button (click)="updateWallet(user.id, amount.value, 'debit', i)">-</button>
+            <button (click)="updateWallet(user.id, amount.value, 'credit', i)">+</button>
         </td>
     </tr>
 </table>

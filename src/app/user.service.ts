@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 const API = "http://localhost:8080/stone.lunchtime/"
@@ -32,7 +32,8 @@ export class UserService {
 
     let URL = 'user/' + type + '/' + userId + '?amount=' + amount;
 
-    return this.http.post(API + URL, options, { headers : options.headers })
+    return this.http.post(API + URL, options, { headers : options.headers , observe : "response"})
     
   }
+
 }
